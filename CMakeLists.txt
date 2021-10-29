@@ -16,7 +16,15 @@ endif()
 
 message(STATUS "CMake ${CMAKE_VERSION}")
 
+add_compile_options(
+$<$<C_COMPILER_ID:Clang,GNU>:-Werror-implicit-function-declaration>
+$<$<C_COMPILER_ID:IntelLLVM>:-Werror>
+$<$<C_COMPILER_ID:Intel>:$<IF:$<BOOL:${WIN32}>,/WX,-Werror>>
+)
+# MSVC and Intel Windows icl don't throw error for implicit function
+
 add_executable(envPrint main.c)
+target_compile_definitions(envPrint PRIVATE _CRT_SECURE_NO_WARNINGS)
 
 add_test(NAME PrintVar_reset COMMAND envPrint ${var})
 add_test(NAME PrintVar_path_append COMMAND envPrint ${var})
