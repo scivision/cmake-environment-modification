@@ -39,17 +39,17 @@ TIMEOUT 5
 set_tests_properties(PrintVar_path_append PROPERTIES
 ENVIRONMENT_MODIFICATION "${var}=path_list_append:${val2}"
 PASS_REGULAR_EXPRESSION "^${val1}${path_sep}${val2}"
-)  # only new value
+)
 
 set_tests_properties(PrintVar_list_append PROPERTIES
 ENVIRONMENT_MODIFICATION "${var}=cmake_list_append:${val2}"
 PASS_REGULAR_EXPRESSION "^${val1}\;${val2}"
-)  # only new value
+)
 
 set_tests_properties(PrintVar_string_append PROPERTIES
 ENVIRONMENT_MODIFICATION "${var}=string_append:${val2}"
 PASS_REGULAR_EXPRESSION "^${val1}${val2}"
-)  # only new value
+)
 
 set_tests_properties(PrintVar_reset PROPERTIES
 ENVIRONMENT_MODIFICATION "${var}=reset:${val1}"
