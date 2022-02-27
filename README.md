@@ -7,3 +7,10 @@ cmake -B build
 cmake --build build
 ctest --test-dir build -V
 ```
+
+ENVIRONMENT_MODIFICATION can only handle single path additions.
+To add multiple paths, use the syntax of the test "multiple_path_append" like:
+
+```cmake
+${var}=path_list_append:${val2};${var}=path_list_append:${val3}
+```
