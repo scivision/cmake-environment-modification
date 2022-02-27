@@ -15,7 +15,7 @@ on:
 
 jobs:
 
-  cmake_unix:
+  cmake:
     strategy:
       matrix:
         img: [{os: ubuntu-latest, gen: Unix Makefiles},
@@ -32,4 +32,4 @@ jobs:
 
     - run: cmake -B build
     - run: cmake --build build
-    - run: ctest --test-dir build -Vs
+    - run: ctest --test-dir build -V
