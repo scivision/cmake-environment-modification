@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.22...3.23)
 project(envPrint LANGUAGES C)
 
 enable_testing()
@@ -8,11 +8,7 @@ set(var CMAKE_TEST_MODVAR1)
 set(val1 /opt/hello)
 set(val2 /opt/goodbye)
 
-if(WIN32)
-  set(path_sep "\;")
-else()
-  set(path_sep ":")
-endif()
+set(path_sep $<IF:$<BOOL:${WIN32}>,$<SEMICOLON>,:>)
 
 message(STATUS "CMake ${CMAKE_VERSION}")
 
@@ -24,7 +20,7 @@ $<$<C_COMPILER_ID:Intel>:$<IF:$<BOOL:${WIN32}>,/WX,-Werror>>
 # MSVC and Intel Windows icl don't throw error for implicit function
 
 add_executable(envPrint main.c)
-target_compile_definitions(envPrint PRIVATE _CRT_SECURE_NO_WARNINGS)
+target_compile_definitions(envPrint PRIVATE $<$<BOOL:${MSVC}>:_CRT_SECURE_NO_WARNINGS>)
 
 add_test(NAME PrintVar_reset COMMAND envPrint ${var})
 add_test(NAME PrintVar_path_append COMMAND envPrint ${var})
