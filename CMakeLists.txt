@@ -17,6 +17,7 @@ add_compile_options($<IF:$<BOOL:${MSVC}>,/WX,-Werror>)
 
 add_executable(envPrint main.cpp)
 target_compile_features(envPrint PRIVATE cxx_std_11)
+target_compile_definitions(envPrint PRIVATE $<$<BOOL:${MSVC}>:_CRT_SECURE_NO_WARNINGS>)
 
 set(names reset path_append list_append string_append multiple_path_append)
 
