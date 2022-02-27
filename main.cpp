@@ -20,7 +20,7 @@ std::string val(enval);
 std::cout << val << std::endl;
 
 if(val != pat) {
-  std::cerr << "expected output does not match" << std::endl;
+  std::cerr << "expected output does not match: " << pat << " != " << val << std::endl;
   return EXIT_FAILURE;
 }
 
