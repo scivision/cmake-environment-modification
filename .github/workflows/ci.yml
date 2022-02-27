@@ -1,0 +1,35 @@
+name: ci
+
+env:
+  CTEST_PARALLEL_LEVEL: 2
+  CMAKE_BUILD_TYPE: Release
+  HOMEBREW_NO_INSTALL_CLEANUP: 1
+
+on:
+  push:
+    paths:
+      - "**/*.c"
+      - "**/CMakeLists.txt"
+      - "**.cmake"
+      - ".github/workflows/ci.yml"
+
+jobs:
+
+  cmake_unix:
+    strategy:
+      matrix:
+        img: [{os: ubuntu-latest, gen: Unix Makefiles},
+              {os: macos-latest, gen: Unix Makefiles},
+              {os: windows-latest, gen: MinGW Makefiles}]
+
+    runs-on: ${{ matrix.img.os }}
+
+    env:
+      CMAKE_GENERATOR: ${{ matrix.img.gen }}
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - run: cmake -B build
+    - run: cmake --build build
+    - run: ctest --test-dir build -Vs
