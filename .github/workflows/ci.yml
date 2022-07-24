@@ -1,14 +1,12 @@
 name: ci
 
 env:
-  CTEST_PARALLEL_LEVEL: 2
-  CMAKE_BUILD_TYPE: Release
   HOMEBREW_NO_INSTALL_CLEANUP: 1
 
 on:
   push:
     paths:
-      - "**/*.c"
+      - "**/*.cpp"
       - "**/CMakeLists.txt"
       - "**.cmake"
       - ".github/workflows/ci.yml"
